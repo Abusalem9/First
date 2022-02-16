@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: rgb(155, 145, 182);
+        }
+        #container{
+            display: flex;
+            justify-content: center;
+            padding-top: 70px;
+            border: 1px solid black;
+            height: 500px;
+            width: 300px;
+            font-family: sans-serif;
+            margin:auto;
+            background-color:rgb(16, 27, 27);
+            text-align: center;
+            color: white;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        }
+        p{
+            font-size: 20px;
+        }
+        input{
+            height: 25px;
+            width:170px;
+            text-align: center;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="container">
+        <form id="form" action="">
+            <h1>Login</h1>
+            <p>Username</p>
+            <input type="text" placeholder="Enter User Name" id="userName">
+            <br>
+            <p>Password</p>
+            <input type="password" placeholder="Enter Password" id="passWord">
+            <br>
+            <p id="warning"></p>
+            <br>
+            <input type="submit">
+        </form>
+    </div>
+</body>
+</html>
+<script>
+    var regUser = JSON.parse(localStorage.getItem("allData"));
+    document.querySelector("#form").addEventListener("submit", formSubmit);
+    var form = document.querySelector("#form");
+    function formSubmit(event) {
+    event.preventDefault();
+    var userName = form.userName.value;
+    var passWord = form.passWord.value;
+    var flag =false;
+    for (var i = 0; i < regUser.length; i++) {
+      if (regUser[i].username == userName && regUser[i].password == passWord) {
+        flag=true;
+      }
+    }
+    if (flag ==true) {
+        alert("Login successful")
+        document.querySelector("input[type='submit']").addEventListener("click",function(){
+                window.location.href="main.html";
+        })
+    }
+    else {
+        alert("Wrong username or password")
+        document.querySelector("#warning").innerText="Wrong username or password";      
+    }
+    
+  }
+
+</script>

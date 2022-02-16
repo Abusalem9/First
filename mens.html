@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body { 
+            background-color: azure;
+        }
+        #container {
+            display:grid;
+            width:300px;
+            height:300px;
+            grid-template-columns: repeat(5,1fr);
+            gap: 20px;
+            
+        }
+        #container > div{
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+        }
+      .priceDiv {
+        display: flex;
+        justify-content: space-between;
+      }
+      .cartDiv {
+          padding-top: -12px;
+        display: flex;
+        justify-content: space-around;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+  </body>
+</html>
+<script src="./Data/mensData.js"></script>
+<script>
+  var mensData = JSON.parse(localStorage.getItem("mensData"));
+  console.log(mensData);
+  mensData.map(function (elem) {
+    var mainDiv = document.createElement("div");
+
+    var img = document.createElement("img");
+    img.setAttribute("src", elem.image_url);
+
+    var name = document.createElement("p");
+    name.innerText = elem.name;
+
+    var innerDiv = document.createElement("div");
+
+    var price = document.createElement("p");
+    price.innerText = elem.price;
+
+    var strikedoffprice = document.createElement("s");
+    strikedoffprice.innerText = elem.strikedoffprice;
+    innerDiv.append(price, strikedoffprice);
+    innerDiv.setAttribute("class", "priceDiv");
+    var innerDiv1 = document.createElement("div");
+    var cart = document.createElement("button");
+    cart.innerText = "Add to cart";
+    var wish = document.createElement("button");
+    wish.innerText = "Add to Wishlist";
+    innerDiv1.append(cart, wish);
+    innerDiv1.setAttribute("class", "cartDiv");
+    cart.addEventListener("click", function (elem) {
+      addToCart(elem);
+    });
+    wish.addEventListener("click", function (elem) {
+      addToCart(elem);
+    });
+
+    mainDiv.append(img, name, innerDiv, innerDiv1);
+
+    document.querySelector("#container").append(mainDiv);
+  });
+</script>
